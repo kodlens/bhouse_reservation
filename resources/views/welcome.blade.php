@@ -16,7 +16,11 @@
 
 @section('content')
 
-    <home-page></home-page>
+    @auth
+        <home-page :prop-is-auth="1"></home-page>
+    @else
+        <home-page :prop-is-auth="0"></home-page>
+    @endauth
 
 
 @endsection

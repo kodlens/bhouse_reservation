@@ -183,11 +183,22 @@
                                 {{ item.boarding_house.barangay.brgyDesc }} {{ item.boarding_house.street }}
                             </div>
                         </div>
-
+ 
                         <div>
-                            
+                            <div class="buttons is-right">
+                                <b-button class="button is-info" tag="a" 
+                                    :href="`/rental-reserve/${item.rental_id}`" v-if="isAuth === 1">Reserve</b-button>
+                                <b-button class="button is-info" 
+                                    tag="a"
+                                    :href="`/login`" v-esle>Sign in</b-button>
+                            </div>
                         </div>
                     </div>
+
+                    <div class="result-rental-price">
+                        <span>&#8369; {{ item.price | formatDecimalComma }}</span> 
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -229,6 +240,13 @@
 
 export default {
 
+    props: {
+        propIsAuth: {
+            type: Number,
+            default: 0
+        }
+    },
+
     data(){
         return{
 
@@ -240,6 +258,7 @@ export default {
                 key: "",
             },
 
+            isAuth: 0,
             
             errors: {},
             fields: {},
@@ -333,9 +352,15 @@ export default {
             });
         },
 
+
+        initData(){
+            this.isAuth = this.propIsAuth
+        }
+
     },
 
     mounted(){
+        this.initData()
         this.loadSearchRentals()
         this.loadProvince()
         this.loadAmenities()
@@ -345,93 +370,5 @@ export default {
 </script>
 
 
-<style scoped>
-
-    .banner-wrapper{
-
-        margin: auto;
-        padding: 40px;
-        background: rgb(46, 46, 46);
-        color:white;
-        border-radius: 10px;
-        text-align: center;
-
-/*
-        position: absolute;
-        top: 0; */
-
-    }
-    .banner-text{
-        font-size: 2em;
-    }
-
-     .banner-sub-text{
-        font-size: 1em;
-    }
-
-    blockquote{
-        font-size: .8em;
-        font-style: italic;
-    }
-
-
-    .filter-subtitle{
-        font-weight: bold;
-        font-size: .8em;
-        color: rgb(155, 155, 155);
-        margin-bottom: 5px;
-    }
-
-    .filter{
-        background-color: white;
-    }
-
-    .search-result{
-        max-width: 900px;
-        margin: auto;
-    }
-
-
-    .result-rental{
-        border: 1px solid #b6b6b6;
-        margin-bottom: 5px;
-        width: 100%;
-    }
-    .rental-content{
-        padding: 10px;
-        display: flex;
-       
-    }
-
-    .result-rental-description{
-        display: flex;
-        flex-direction: column;
-        margin-left: 15px;
-        width: 100%;
-        flex-wrap: wrap;
-    }
-    .result-rental-title{
-        font-weight: bold;
-        font-size: 1.2em;
-    }
-
-    .result-rental-desc{
-        color: gray;
-    }
-
-    .img-cover{
-        object-fit: cover;
-        height: 200px;
-        width: 200px;
-        border-radius: 10px;
-    }
-
-
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (max-width: 768px) {
-    .search-result{
-        margin: 0 15px;
-    }
-}
-
+<style scoped src="../../sass/homepage.css">
 </style>
