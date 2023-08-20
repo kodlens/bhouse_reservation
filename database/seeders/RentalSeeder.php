@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Room;
+use App\Models\Rental;
 use Illuminate\Database\Seeder;
 
 class RentalSeeder extends Seeder
@@ -19,7 +19,7 @@ class RentalSeeder extends Seeder
         $data = [
             [
                 'bhouse_id' => 1,
-                'rental_no' => 'rental 101',
+                'rental_name' => 'rental 101',
                 'rental_desc' => 'rental HAS 4 BEDSPACES W/ AIRCON AND 2 CR. FREE WIFI INSTALLED.',
                 'rental_img_path' => 'rental1.jpg',
                 'rental_type' => 'PRIVATE',
@@ -27,18 +27,18 @@ class RentalSeeder extends Seeder
 
             [
                 'bhouse_id' => 2,
-                'rental_no' => 'rental 102',
+                'rental_name' => 'rental 102',
                 'rental_desc' => 'rental HAS 4 BEDSPACES W/ AIRCON AND 2 CR. FREE WIFI INSTALLED.',
                 'rental_img_path' => 'rental2.jpg',
-                'rental_type' => 'SHARED rental',
+                'rental_type' => 'SHARED',
             ],
 
             [
                 'bhouse_id' => 3,
-                'rental_no' => 'rental 01',
+                'rental_name' => 'rental 01',
                 'rental_desc' => 'SMALL AND SHARE rental BEDSPACE.',
-                'rental_img_path' => 'tlX0liWQ7mXnxIaMRBfypHde7HQwBZYEDmZi6MUF.jpg',
-                'rental_type' => 'SHARED rental',
+                'rental_img_path' => 'rental3.jpg',
+                'rental_type' => 'PRIVATE',
             ],
 
 

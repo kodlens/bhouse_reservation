@@ -21,7 +21,7 @@ class CreateRentalsTable extends Migration
             $table->foreign('bhouse_id')->references('bhouse_id')->on('boarding_houses')
                 ->onUpdate('cascade')->onDelete('cascade');
 
-            $table->string('rental_no')->nullable();
+            $table->string('rental_name')->nullable();
             $table->string('rental_desc')->nullable();
             $table->string('rental_type')->nullable();
             $table->string('amenities')->nullable();

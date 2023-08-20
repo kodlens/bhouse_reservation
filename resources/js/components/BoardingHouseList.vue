@@ -1,25 +1,5 @@
 <template>
     <div class="section">
-        <!--        <div class="columns is-centered">-->
-        <!--            <div class="column is-6">-->
-        <!--                <b-field>-->
-        <!--                    <p class="control">-->
-        <!--                        <b-select v-model="search.category" placeholder="Please select...">-->
-        <!--                            <option value="bhouse">BOARDING HOUSE</option>-->
-        <!--                            <option value="rule ">RULES</option>-->
-        <!--                            <option value="amenities">AMENITIES</option>-->
-        <!--                            <option value="location">LOCATION (Purok/Street)</option>-->
-        <!--                        </b-select>-->
-        <!--                    </p>-->
-        <!--                    <b-input type="text" v-model="search.key" expanded placeholder="Search Boarding House"></b-input>-->
-        <!--                    <p class="control">-->
-        <!--                        <b-button class="button is-link" icon-left="magnify" @click="loadBoardingHouses"></b-button>-->
-        <!--                    </p>-->
-
-        <!--                </b-field>-->
-        <!--            </div>-->
-        <!--        </div>-->
-
         <div class="columns is-centered">
             <div class="column is-8">
                 <b-field expanded>

@@ -1,9 +1,7 @@
 <?php
 
 namespace Database\Seeders;
-
-use App\Models\Room;
-use App\Models\RoomType;
+use App\Models\RentalType;
 use Illuminate\Database\Seeder;
 
 class RentalTypeSeeder extends Seeder

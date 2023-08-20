@@ -58,19 +58,9 @@ class BoardingHouse extends Model
         return $this->hasOne(Barangay::class, 'brgyCode', 'barangay');
     }
 
-    public function rooms(){
-        return $this->hasMany(Room::class, 'bhouse_id', 'bhouse_id')
-            ->orderBy('room_id', 'desc');
+    public function rentals(){
+        return $this->hasMany(Rental::class, 'bhouse_id', 'bhouse_id')
+            ->orderBy('rental_id', 'desc');
     }
 
-    
-    public function bedspaces(){
-        return $this->hasManyThrough(
-            BedSpace::class,
-            Room::class,
-            'bhouse_id',
-            'room_id',
-            'bhouse_id',
-            'room_id');
-    }
 }

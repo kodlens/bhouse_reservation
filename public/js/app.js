@@ -10431,26 +10431,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -11097,7 +11077,258 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      rentals: [],
+      itemShow: 3,
+      search: {
+        category: "",
+        key: ""
+      },
+      errors: {},
+      fields: {},
+      filter: {
+        bhousename: "",
+        rules: [],
+        rental_type: "",
+        min_price: 700,
+        max_price: 1500,
+        amenities: [],
+        province: "",
+        city: "",
+        barangay: "",
+        street: ""
+      },
+      amenities: [],
+      rules: [],
+      provinces: [],
+      cities: [],
+      barangays: [],
+      street: ''
+    };
+  },
+  methods: {
+    loadSearchRentals: function loadSearchRentals() {
+      var _this = this;
+
+      this.modalFilter = false;
+      var params = ["rules=".concat(encodeURIComponent(JSON.stringify(this.filter.rules))), "min_price=".concat(this.filter.min_price), "max_price=".concat(this.filter.max_price), "rental_type=".concat(this.filter.rental_type), "amenities=".concat(encodeURIComponent(JSON.stringify(this.filter.amenities))), "province=".concat(this.filter.province), "city=".concat(this.filter.city), "barangay=".concat(this.filter.barangay), "street=".concat(this.filter.street)].join("&");
+      axios.get("/get-search-rentals?".concat(params)).then(function (res) {
+        _this.rentals = res.data;
+
+        _this.loadMap(res.data);
+      })["catch"](function (err) {});
+    },
+    //ADDRESS
+    loadProvince: function loadProvince() {
+      var _this2 = this;
+
+      axios.get("/load-provinces").then(function (res) {
+        _this2.provinces = res.data;
+      });
+    },
+    loadCity: function loadCity() {
+      var _this3 = this;
+
+      axios.get("/load-cities?prov=" + this.filter.province).then(function (res) {
+        _this3.cities = res.data;
+      });
+    },
+    loadBarangay: function loadBarangay() {
+      var _this4 = this;
+
+      axios.get("/load-barangays?prov=" + this.filter.province + "&city_code=" + this.filter.city).then(function (res) {
+        _this4.barangays = res.data;
+      });
+    },
+    loadAmenities: function loadAmenities() {
+      var _this5 = this;
+
+      axios.get("/load-open-amenities?").then(function (res) {
+        _this5.amenities = res.data;
+      });
+    },
+    loadRules: function loadRules() {
+      var _this6 = this;
+
+      axios.get("/load-open-rules?").then(function (res) {
+        _this6.rules = res.data;
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.loadSearchRentals();
+    this.loadProvince();
+    this.loadAmenities();
+    this.loadRules();
+  }
+});
 
 /***/ }),
 
@@ -35869,7 +36100,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.banner-wrapper[data-v-fa44bb0e]{\n\n        margin: auto;\n        padding: 40px;\n        background: rgb(46, 46, 46);\n        color:white;\n        border-radius: 10px;\n        text-align: center;\n\n/*\n        position: absolute;\n        top: 0; */\n}\n.banner-text[data-v-fa44bb0e]{\n        font-size: 2em;\n}\n.banner-sub-text[data-v-fa44bb0e]{\n        font-size: 1em;\n}\nblockquote[data-v-fa44bb0e]{\n        font-size: .8em;\n        font-style: italic;\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.banner-wrapper[data-v-fa44bb0e]{\n\n        margin: auto;\n        padding: 40px;\n        background: rgb(46, 46, 46);\n        color:white;\n        border-radius: 10px;\n        text-align: center;\n\n/*\n        position: absolute;\n        top: 0; */\n}\n.banner-text[data-v-fa44bb0e]{\n        font-size: 2em;\n}\n.banner-sub-text[data-v-fa44bb0e]{\n        font-size: 1em;\n}\nblockquote[data-v-fa44bb0e]{\n        font-size: .8em;\n        font-style: italic;\n}\n.filter-subtitle[data-v-fa44bb0e]{\n        font-weight: bold;\n        font-size: .8em;\n        color: rgb(155, 155, 155);\n        margin-bottom: 5px;\n}\n.filter[data-v-fa44bb0e]{\n        background-color: white;\n}\n.search-result[data-v-fa44bb0e]{\n        max-width: 900px;\n        margin: auto;\n}\n.result-rental[data-v-fa44bb0e]{\n        border: 1px solid #b6b6b6;\n        margin-bottom: 5px;\n        width: 100%;\n}\n.rental-content[data-v-fa44bb0e]{\n        padding: 10px;\n        display: flex;\n}\n.result-rental-description[data-v-fa44bb0e]{\n        display: flex;\n        flex-direction: column;\n        margin-left: 15px;\n        width: 100%;\n        flex-wrap: wrap;\n}\n.result-rental-title[data-v-fa44bb0e]{\n        font-weight: bold;\n        font-size: 1.2em;\n}\n.result-rental-desc[data-v-fa44bb0e]{\n        color: gray;\n}\n.img-cover[data-v-fa44bb0e]{\n        -o-object-fit: cover;\n           object-fit: cover;\n        height: 200px;\n        width: 200px;\n        border-radius: 10px;\n}\n\n\n/* Medium devices (landscape tablets, 768px and up) */\n@media only screen and (max-width: 768px) {\n.search-result[data-v-fa44bb0e]{\n        margin: 0 15px;\n}\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -56477,69 +56708,608 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _c("div", { staticClass: "filter" }, [
+      _c("div", { staticClass: "columns m-2" }, [
+        _c("div", { staticClass: "column" }, [
+          _c("div", { staticClass: "has-text-weight-bold mb-2" }, [
+            _vm._v("\n                    FILTERS\n                "),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "filter-subtitle" }, [
+            _vm._v("\n                    ADDRESS\n                "),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "columns px-4" }, [
+            _c(
+              "div",
+              { staticClass: "column" },
+              [
+                _c(
+                  "b-field",
+                  {
+                    attrs: {
+                      label: "Province",
+                      expanded: "",
+                      "label-position": "on-border",
+                      type: this.errors.province ? "is-danger" : "",
+                      message: this.errors.province
+                        ? this.errors.province[0]
+                        : "",
+                    },
+                  },
+                  [
+                    _c(
+                      "b-select",
+                      {
+                        attrs: { expanded: "" },
+                        on: { input: _vm.loadCity },
+                        model: {
+                          value: _vm.filter.province,
+                          callback: function ($$v) {
+                            _vm.$set(_vm.filter, "province", $$v)
+                          },
+                          expression: "filter.province",
+                        },
+                      },
+                      [
+                        _c("option", { attrs: { value: "" } }, [
+                          _vm._v("(none)"),
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.provinces, function (item, index) {
+                          return _c(
+                            "option",
+                            { key: index, domProps: { value: item.provCode } },
+                            [
+                              _vm._v(
+                                "\n                                    " +
+                                  _vm._s(item.provDesc) +
+                                  "\n                                "
+                              ),
+                            ]
+                          )
+                        }),
+                      ],
+                      2
+                    ),
+                  ],
+                  1
+                ),
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "column" },
+              [
+                _c(
+                  "b-field",
+                  {
+                    attrs: {
+                      label: "City",
+                      expanded: "",
+                      "label-position": "on-border",
+                      type: this.errors.city ? "is-danger" : "",
+                      message: this.errors.city ? this.errors.city[0] : "",
+                    },
+                  },
+                  [
+                    _c(
+                      "b-select",
+                      {
+                        attrs: { expanded: "" },
+                        on: { input: _vm.loadBarangay },
+                        model: {
+                          value: _vm.filter.city,
+                          callback: function ($$v) {
+                            _vm.$set(_vm.filter, "city", $$v)
+                          },
+                          expression: "filter.city",
+                        },
+                      },
+                      [
+                        _c("option", { attrs: { value: "" } }, [
+                          _vm._v("(none)"),
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.cities, function (item, index) {
+                          return _c(
+                            "option",
+                            {
+                              key: index,
+                              domProps: { value: item.citymunCode },
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    " +
+                                  _vm._s(item.citymunDesc) +
+                                  "\n                                "
+                              ),
+                            ]
+                          )
+                        }),
+                      ],
+                      2
+                    ),
+                  ],
+                  1
+                ),
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "column" },
+              [
+                _c(
+                  "b-field",
+                  {
+                    attrs: {
+                      label: "Barangay",
+                      expanded: "",
+                      "label-position": "on-border",
+                      type: this.errors.barangay ? "is-danger" : "",
+                      message: this.errors.barangay
+                        ? this.errors.barangay[0]
+                        : "",
+                    },
+                  },
+                  [
+                    _c(
+                      "b-select",
+                      {
+                        attrs: { expanded: "" },
+                        model: {
+                          value: _vm.filter.barangay,
+                          callback: function ($$v) {
+                            _vm.$set(_vm.filter, "barangay", $$v)
+                          },
+                          expression: "filter.barangay",
+                        },
+                      },
+                      [
+                        _c("option", { attrs: { value: "" } }, [
+                          _vm._v("(none)"),
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.barangays, function (item, index) {
+                          return _c(
+                            "option",
+                            { key: index, domProps: { value: item.brgyCode } },
+                            [
+                              _vm._v(
+                                "\n                                    " +
+                                  _vm._s(item.brgyDesc) +
+                                  "\n                                "
+                              ),
+                            ]
+                          )
+                        }),
+                      ],
+                      2
+                    ),
+                  ],
+                  1
+                ),
+              ],
+              1
+            ),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "filter-subtitle" }, [
+            _vm._v("\n                    PRICE RANGE\n                "),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "columns px-4" }, [
+            _c(
+              "div",
+              { staticClass: "column" },
+              [
+                _c(
+                  "b-field",
+                  { attrs: { grouped: "" } },
+                  [
+                    _c(
+                      "b-field",
+                      {
+                        attrs: {
+                          label: "Min price",
+                          "label-position": "on-border",
+                        },
+                      },
+                      [
+                        _c("b-numberinput", {
+                          attrs: {
+                            "controls-alignment": "right",
+                            "controls-position": "compact",
+                          },
+                          model: {
+                            value: _vm.filter.min_price,
+                            callback: function ($$v) {
+                              _vm.$set(_vm.filter, "min_price", $$v)
+                            },
+                            expression: "filter.min_price",
+                          },
+                        }),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "b-field",
+                      {
+                        attrs: {
+                          label: "Max price",
+                          "label-position": "on-border",
+                        },
+                      },
+                      [
+                        _c("b-numberinput", {
+                          attrs: {
+                            "controls-alignment": "right",
+                            min: 0,
+                            "controls-position": "compact",
+                          },
+                          model: {
+                            value: _vm.filter.max_price,
+                            callback: function ($$v) {
+                              _vm.$set(_vm.filter, "max_price", $$v)
+                            },
+                            expression: "filter.max_price",
+                          },
+                        }),
+                      ],
+                      1
+                    ),
+                  ],
+                  1
+                ),
+              ],
+              1
+            ),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "filter-subtitle" }, [
+            _vm._v("\n                    ROOM TYPE\n                "),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "columns px-4" }, [
+            _c(
+              "div",
+              { staticClass: "column" },
+              [
+                _c(
+                  "b-field",
+                  { attrs: { label: "Private Room" } },
+                  [
+                    _c(
+                      "b-radio",
+                      {
+                        attrs: { type: "checkbox", "native-value": "PRIVATE" },
+                        model: {
+                          value: _vm.filter.rental_type,
+                          callback: function ($$v) {
+                            _vm.$set(_vm.filter, "rental_type", $$v)
+                          },
+                          expression: "filter.rental_type",
+                        },
+                      },
+                      [
+                        _vm._v(
+                          "\n                                Your own home in a home.\n                            "
+                        ),
+                      ]
+                    ),
+                  ],
+                  1
+                ),
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "column" },
+              [
+                _c(
+                  "b-field",
+                  { attrs: { label: "Shared Room" } },
+                  [
+                    _c(
+                      "b-radio",
+                      {
+                        attrs: { type: "checkbox", "native-value": "SHARED" },
+                        model: {
+                          value: _vm.filter.rental_type,
+                          callback: function ($$v) {
+                            _vm.$set(_vm.filter, "rental_type", $$v)
+                          },
+                          expression: "filter.rental_type",
+                        },
+                      },
+                      [
+                        _vm._v(
+                          "\n                                A sleeping space and common areas that\n                                may be shared with others.\n                            "
+                        ),
+                      ]
+                    ),
+                  ],
+                  1
+                ),
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "column" },
+              [
+                _c(
+                  "b-field",
+                  { attrs: { label: "Both" } },
+                  [
+                    _c(
+                      "b-radio",
+                      {
+                        attrs: { type: "checkbox", "native-value": "" },
+                        model: {
+                          value: _vm.filter.rental_type,
+                          callback: function ($$v) {
+                            _vm.$set(_vm.filter, "rental_type", $$v)
+                          },
+                          expression: "filter.rental_type",
+                        },
+                      },
+                      [
+                        _vm._v(
+                          "\n                                Both private and shared\n                            "
+                        ),
+                      ]
+                    ),
+                  ],
+                  1
+                ),
+              ],
+              1
+            ),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "filter-subtitle" }, [
+            _vm._v("\n                    AMENITIES\n                "),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "columns px-4" }, [
+            _c("div", { staticClass: "column" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "\n                            is-flex\n                            is-flex-wrap-wrap",
+                },
+                _vm._l(_vm.amenities, function (el, ix) {
+                  return _c(
+                    "div",
+                    { key: ix, staticClass: "mr-5" },
+                    [
+                      _c(
+                        "b-checkbox",
+                        {
+                          attrs: { "native-value": el.amenity_id },
+                          model: {
+                            value: _vm.filter.amenities,
+                            callback: function ($$v) {
+                              _vm.$set(_vm.filter, "amenities", $$v)
+                            },
+                            expression: "filter.amenities",
+                          },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                        " +
+                              _vm._s(el.amenity) +
+                              "\n                                    "
+                          ),
+                        ]
+                      ),
+                    ],
+                    1
+                  )
+                }),
+                0
+              ),
+            ]),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "filter-subtitle" }, [
+            _vm._v("\n                    RULES\n                "),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "columns px-4" }, [
+            _c("div", { staticClass: "column" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "\n                            is-flex\n                            is-flex-wrap-wrap\n                            is-justify-content-space-between",
+                },
+                _vm._l(_vm.rules, function (el, ix) {
+                  return _c(
+                    "div",
+                    { key: ix },
+                    [
+                      _c(
+                        "b-checkbox",
+                        {
+                          attrs: { "native-value": el.rule_id },
+                          model: {
+                            value: _vm.filter.rules,
+                            callback: function ($$v) {
+                              _vm.$set(_vm.filter, "rules", $$v)
+                            },
+                            expression: "filter.rules",
+                          },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                    " +
+                              _vm._s(el.rule) +
+                              "\n                                "
+                          ),
+                        ]
+                      ),
+                    ],
+                    1
+                  )
+                }),
+                0
+              ),
+            ]),
+          ]),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "buttons is-right px-4" },
+        [
+          _c(
+            "b-button",
+            {
+              staticClass: "button is-primary",
+              attrs: { "icon-left": "magnify" },
+              on: { click: _vm.loadSearchRentals },
+            },
+            [_vm._v("SEARCH")]
+          ),
+        ],
+        1
+      ),
+    ]),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "search-result" },
+      _vm._l(_vm.rentals, function (item, ix) {
+        return _c("div", { key: ix, staticClass: "result-rental" }, [
+          _c("div", { staticClass: "rental-content" }, [
+            _c("img", {
+              staticClass: "img-cover",
+              attrs: {
+                src: "/storage/rentals/" + item.rental_img_path,
+                alt: "rental images",
+                srcset: "",
+              },
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "result-rental-description" }, [
+              _c("div", { staticClass: "result-rental-title" }, [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(item.rental_name) +
+                    "\n                    "
+                ),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "result-rental-desc" }, [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(item.rental_desc) +
+                    "\n                    "
+                ),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticStyle: { "margin-top": "10px" } }, [
+                _c(
+                  "div",
+                  {
+                    staticStyle: {
+                      "font-weight": "bold",
+                      "font-size": ".8em",
+                      color: "#b8b8b8",
+                      "margin-top": "5px",
+                    },
+                  },
+                  [
+                    _vm._v(
+                      "\n                            RENTAL TYPE\n                        "
+                    ),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticStyle: {
+                      "margin-left": "15px",
+                      "font-style": "italic",
+                    },
+                  },
+                  [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(item.rental_type) +
+                        "\n                        "
+                    ),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticStyle: {
+                      "font-weight": "bold",
+                      "font-size": ".8em",
+                      color: "#b8b8b8",
+                      "margin-top": "5px",
+                    },
+                  },
+                  [
+                    _vm._v(
+                      "\n                            ADDRESS\n                        "
+                    ),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticStyle: {
+                      "margin-left": "15px",
+                      "font-style": "italic",
+                    },
+                  },
+                  [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(item.boarding_house.province.provDesc) +
+                        ", " +
+                        _vm._s(item.boarding_house.city.citymunDesc) +
+                        "\n                            " +
+                        _vm._s(item.boarding_house.barangay.brgyDesc) +
+                        " " +
+                        _vm._s(item.boarding_house.street) +
+                        "\n                        "
+                    ),
+                  ]
+                ),
+              ]),
+              _vm._v(" "),
+              _c("div"),
+            ]),
+          ]),
+        ])
+      }),
+      0
+    ),
+    _vm._v(" "),
     _vm._m(0),
-    _vm._v(" "),
-    _c("section", { staticClass: "section" }, [_c("boarding-house-list")], 1),
-    _vm._v(" "),
-    _vm._m(1),
   ])
 }
 var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "section",
-      { staticClass: "hero is-primary is-fullheight-with-navbar" },
-      [
-        _c("div", { staticClass: "hero-body" }, [
-          _c(
-            "div",
-            {
-              staticClass:
-                "banner-wrapper animate__animated animate__backInLeft",
-            },
-            [
-              _c(
-                "p",
-                {
-                  staticClass:
-                    "title banner-text animate__animated animate__backInLeft",
-                },
-                [
-                  _vm._v(
-                    "\n                        WEB-BASED BOARDING HOUSE LOCATOR\n                    "
-                  ),
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "p",
-                {
-                  staticClass:
-                    "subtitle banner-sub-text animate__animated animate__backInRight",
-                },
-                [
-                  _vm._v(
-                    "\n                        A web base boarding house locator.\n                    "
-                  ),
-                ]
-              ),
-              _vm._v(" "),
-              _c("blockquote", [
-                _vm._v(
-                  "\n                        Choose the boarding house that appeals to you the most.\n                    "
-                ),
-              ]),
-            ]
-          ),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "hero-foot" }),
-      ]
-    )
-  },
   function () {
     var _vm = this
     var _h = _vm.$createElement
@@ -56565,7 +57335,7 @@ var staticRenderFns = [
               _c("div", { staticClass: "p-5" }, [
                 _c("div", { staticClass: "footer-component-title" }, [
                   _vm._v(
-                    "\n                               WEB BASE BOARDING HOUSE MANAGEMENT SYSTEM\n                            "
+                    "\n                           WEB BASE BOARDING HOUSE MANAGEMENT SYSTEM\n                        "
                   ),
                 ]),
               ]),

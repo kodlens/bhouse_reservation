@@ -25,9 +25,7 @@
 @import '~@vueup/vue-quill/dist/vue-quill.snow.css';
 
 
-html{
-    background-color: rgb(224, 219,219) !important;
-}
+
 
 .panel{
     background-color:white !important;
@@ -51,7 +49,7 @@ html{
 @import "~bulma/sass/utilities/_all";
 //
 ////Set your colors
-$primary:#1E90FF;
+$primary:#0e4f91;
 $primary-light: findLightColor($primary);
 $primary-dark: findDarkColor($primary);
 $primary-invert: findColorInvert($primary);

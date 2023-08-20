@@ -170,7 +170,13 @@ Route::delete('/bedspace-imgs-delete/{bedspaceid}', [App\Http\Controllers\LandOw
 //-------------------------///
 
 
+// search boarding house controller
+Route::get('/get-search-rentals', [App\Http\Controllers\SearchRentalController::class, 'getSearchBhouses']);
+
+
 //CLIENT BOARDING HOUSES //
+
+
 Route::get('/get-client-bhouses', [App\Http\Controllers\ClientBhouseController::class, 'getBhouses']);
 Route::get('/client-bhouse-detail/{id}', [App\Http\Controllers\ClientBhouseController::class, 'showBhouseDetail']);
 Route::get('/get-bhouse-detail/{id}', [App\Http\Controllers\ClientBhouseController::class, 'getBhouseDetail']);
