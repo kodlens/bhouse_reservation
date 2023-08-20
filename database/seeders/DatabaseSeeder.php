@@ -21,11 +21,9 @@ class DatabaseSeeder extends Seeder
             AminitySeeder::class,
             RuleSeeder::class,
             BoardingHouseSeeder::class,
-            RoomSeeder::class,
-            BedSpaceSeeder::class,
-            BedspaceImgSeeder::class,
+            RentalSeeder::class,
             BhouseAmenitySeeder::class,
-            RoomTypeSeeder::class
+            RentalTypeSeeder::class
         ]);
     }
 }
