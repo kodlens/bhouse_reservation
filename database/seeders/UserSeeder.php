@@ -145,6 +145,26 @@ class UserSeeder extends Seeder
                 'role' => 'LANDOWNER',
                 'password' => Hash::make('a')
             ],
+
+
+            [
+                'username' => 'user01',
+                'lname' => 'TAGATAY',
+                'fname' => 'LANCE',
+                'mname' => '',
+                'suffix' => '',
+                'sex' => 'MALE',
+                'province' => '1042',
+                'city' => '104215',
+                'barangay' => '104215025',
+                'street' => 'JUAN LUNA ST.',
+                'email' => 'lance@sample.com',
+                'contact_no' => '09167789584',
+                'business_permit_img' => '',
+                'active' => 1,
+                'role' => 'BOARDER',
+                'password' => Hash::make('a')
+            ],
             
             // [
             //     'username' => 'kimchie',

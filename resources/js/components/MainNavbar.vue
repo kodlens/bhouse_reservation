@@ -88,14 +88,12 @@
     </section>
 
 
-
-
     <!--modal-->
     <b-modal v-model="isModalActive" has-modal-card
              trap-focus width="640" aria-role="dialog" aria-modal>
         <div class="modal-card">
             <header class="modal-card-head">
-                <p class="modal-card-title">Login </p>
+                <p class="modal-card-title">LOGIN </p>
                 <button type="button" class="delete"
                         @click="isModalActive = false"/>
             </header>
@@ -104,19 +102,19 @@
                 <div>
                     <form @submit.prevent="submit">
                         <b-field label="Username"
-                                 label-position="on-border"
-                                 :type="errors.username ? 'is-danger' : ''"
-                                 :message="errors.username ? errors.username[0] : ''">
+                            label-position="on-border"
+                            :type="errors.username ? 'is-danger' : ''"
+                            :message="errors.username ? errors.username[0] : ''">
                             <b-input type="text" v-model="fields.username" placeholder="Username" expanded auto-focus></b-input>
                         </b-field>
 
                         <b-field label="Password" label-position="on-border"
-                                 :type="errors.password ? 'is-danger' : ''"
-                                 :message="errors.password ? errors.password[0] : ''">
+                            :type="errors.password ? 'is-danger' : ''"
+                            :message="errors.password ? errors.password[0] : ''">
                             <b-input type="password" v-model="fields.password" password-reveal placeholder="Password" expanded auto-focus></b-input>
                         </b-field>
 
-                        <footer class="modal-card-foot">
+                        <footer class="modal-card-footer">
                             <button
                                 class="button is-success"
                                 label="LOGIN"
@@ -169,7 +167,7 @@ export default {
     methods: {
         submit: function(){
             axios.post('/login', this.fields).then(res=>{
-                window.location = '/gate'
+                window.location = '/login'
             }).catch(err => {
                 if(err.response.status === 422){
                     this.errors = err.response.data.errors;

@@ -175,8 +175,6 @@ Route::get('/get-search-rentals', [App\Http\Controllers\SearchRentalController::
 
 
 //CLIENT BOARDING HOUSES //
-
-
 Route::get('/get-client-bhouses', [App\Http\Controllers\ClientBhouseController::class, 'getBhouses']);
 Route::get('/client-bhouse-detail/{id}', [App\Http\Controllers\ClientBhouseController::class, 'showBhouseDetail']);
 Route::get('/get-bhouse-detail/{id}', [App\Http\Controllers\ClientBhouseController::class, 'getBhouseDetail']);
@@ -192,6 +190,12 @@ Route::get('/get-client-bhroom-bedspaces/{id}', [App\Http\Controllers\ClientBhou
 Route::post('/client-bhroom-bedspace-reserve/{bedspace_id}', [App\Http\Controllers\ClientReserveBedSpaceController::class, 'reserveBedspace']);
 
 
+//boarder, already have account and already login
+Route::middleware(['auth'])->group(function() {
+
+    Route::get('/rental-reserve/{id}', [App\Http\Controllers\Boarder\RentalReserveController::class, 'index']);
+
+});
 
 
 

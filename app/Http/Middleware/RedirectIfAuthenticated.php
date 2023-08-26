@@ -31,7 +31,7 @@ class RedirectIfAuthenticated
                 }else if($role === 'LANDOWNER'){
                     return redirect('/landowner-dashboard');
                 }else if($role === 'BOARDER'){
-                    return redirect('/boarder-dashboard');
+                    return redirect('/');
                 }
             }
         }

@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="filter">
-            <div class="columns m-2">
-                <div class="column">
+            <div class="columns m-2 is-centered">
+                <div class="column is-8">
                     <div class="has-text-weight-bold mb-2">
                         FILTERS
                     </div>
@@ -139,14 +139,17 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <div class="buttons is-right px-4">
-                <b-button class="button is-primary" 
-                    @click="loadSearchRentals"
-                    icon-left="magnify">SEARCH</b-button>
-            </div>
+                    <div class="buttons is-right px-4">
+                        <b-button class="button is-primary" 
+                            @click="loadSearchRentals"
+                            icon-left="magnify">SEARCH</b-button>
+                    </div>
+                
+                </div> <!--col-->
+            </div><!--cols-->
+
+           
         </div>
         <hr>
         <!-- result here -->
@@ -187,10 +190,10 @@
                         <div>
                             <div class="buttons is-right">
                                 <b-button class="button is-info" tag="a" 
-                                    :href="`/rental-reserve/${item.rental_id}`" v-if="isAuth === 1">Reserve</b-button>
+                                    :href="`/rental-reserve/${item.rental_id}`" v-if="isAuth === 1">Make Reservation</b-button>
                                 <b-button class="button is-info" 
                                     tag="a"
-                                    :href="`/login`" v-esle>Sign in</b-button>
+                                    :href="`/login`" v-else>Sign in</b-button>
                             </div>
                         </div>
                     </div>
