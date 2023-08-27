@@ -10193,6 +10193,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     propRental: {
@@ -10208,6 +10241,9 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     initData: function initData() {
       this.rental = this.propRental;
+    },
+    reserveNow: function reserveNow() {
+      axios.post('/rental-reserve-now', this.rental).then(function (res) {})["catch"](function (err) {});
     }
   },
   mounted: function mounted() {
@@ -14760,7 +14796,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     submit: function submit() {
-      axios.post('/login').then(function () {//window.location = '/gate';
+      var _this = this;
+
+      axios.post('/login', this.fields).then(function () {
+        window.location = '/login';
+      })["catch"](function (err) {
+        _this.errors = err.response.data.errors;
       });
     }
   }
@@ -55700,14 +55741,64 @@ var render = function () {
           _c("div", { staticClass: "box" }, [
             _c("div", { staticClass: "box-header" }),
             _vm._v(" "),
-            _c("div", { staticClass: "box-body" }, [
-              _c("img", {
-                attrs: {
-                  src: "/storage/rentals/" + _vm.rental.rental_img_path,
-                  alt: "",
-                },
-              }),
+            _c("div", {}, [
+              _c("div", { staticClass: "box-body" }, [
+                _c("img", {
+                  attrs: {
+                    src: "/storage/rentals/" + _vm.rental.rental_img_path,
+                    alt: "",
+                  },
+                }),
+              ]),
+              _vm._v(" "),
+              _c("div"),
             ]),
+            _vm._v(" "),
+            _c("div", [
+              _c("div", [
+                _vm._v(
+                  "\n                            " +
+                    _vm._s(_vm.rental.rental_name) +
+                    "\n                        "
+                ),
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _vm._v(
+                  "\n                            " +
+                    _vm._s(_vm.rental.rental_desc) +
+                    "\n                        "
+                ),
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _vm._v(
+                  "\n                            " +
+                    _vm._s(_vm.rental.province) +
+                    "\n                        "
+                ),
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _vm._v(
+                  "\n                            ₱ " +
+                    _vm._s(_vm._f("formatDecimalComma")(_vm.rental.price)) +
+                    "\n                        "
+                ),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              [
+                _c("b-button", {
+                  staticClass: "is-primary is-outlined",
+                  attrs: { label: "Reserve Now" },
+                  on: { click: _vm.reserveNow },
+                }),
+              ],
+              1
+            ),
           ]),
         ]),
       ]),
@@ -62837,10 +62928,12 @@ var render = function () {
               [
                 _c(
                   "b-field",
-                  { attrs: { label: "Email", "label-position": "on-border" } },
+                  {
+                    attrs: { label: "Username", "label-position": "on-border" },
+                  },
                   [
                     _c("b-input", {
-                      attrs: { type: "text", placeholder: "Email" },
+                      attrs: { type: "text", placeholder: "Username" },
                       model: {
                         value: _vm.fields.username,
                         callback: function ($$v) {
@@ -62877,16 +62970,7 @@ var render = function () {
                   1
                 ),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "buttons" },
-                  [
-                    _c("b-button", { attrs: { type: "is-success" } }, [
-                      _vm._v("LOGIN"),
-                    ]),
-                  ],
-                  1
-                ),
+                _vm._m(0),
               ],
               1
             ),
@@ -62896,7 +62980,20 @@ var render = function () {
     ]),
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "buttons" }, [
+      _c(
+        "button",
+        { staticClass: "button is-success", attrs: { type: "is-success" } },
+        [_vm._v("LOGIN")]
+      ),
+    ])
+  },
+]
 render._withStripped = true
 
 

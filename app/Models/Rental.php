@@ -21,4 +21,18 @@ class Rental extends Model
         return $this->belongsTo(BoardingHouse::class, 'bhouse_id', 'bhouse_id');
     }
 
+    public function rental_imgs(){
+        return $this->hasMany(RentalImg::class, 'rental_id', 'rental_id');
+    }
+
+    public function province(){
+        return $this->hasOne(Province::class, 'province', 'provCode');
+    }
+    public function city(){
+        return $this->hasOne(RentalImg::class, 'rental_id', 'rental_id');
+    }
+    public function barangay(){
+        return $this->hasOne(RentalImg::class, 'rental_id', 'rental_id');
+    }
+
 }

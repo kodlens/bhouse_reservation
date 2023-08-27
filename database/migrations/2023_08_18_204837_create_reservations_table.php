@@ -14,7 +14,24 @@ class CreateReservationsTable extends Migration
     public function up()
     {
         Schema::create('reservations', function (Blueprint $table) {
-            $table->id();
+            $table->id('reservation_id');
+            $table->string('reservation_ref');
+            
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('user_id')->on('users')
+                ->onUpdate('cascade')->onDelete('cascade');
+
+            $table->unsignedBigInteger('rental_id');
+            $table->foreign('rental_id')->references('rental_id')->on('rentals')
+                ->onUpdate('cascade')->onDelete('cascade');
+
+            $table->integer('price')->default(0);
+
+            $table->dateTime('book_datetime')->nullable();
+
+            $table->tinyInteger('status')->default(0);
+            $table->dateTime('approved_datetime')->nullable();
+
             $table->timestamps();
         });
     }

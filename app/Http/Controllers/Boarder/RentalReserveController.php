@@ -12,9 +12,16 @@ class RentalReserveController extends Controller
 
     public function index($id){
 
-        $rental = Rental::find($id);
+        $rental = Rental::where('rental_id', $id)
+            ->with(['rental_imgs'])
+            ->first();
         return view('rental-reserve')
             ->with('rental', $rental);
+    }
+
+    public function rentalReserveNow(Request $req){
+
+        return $req;
     }
 
 

@@ -194,7 +194,9 @@ Route::post('/client-bhroom-bedspace-reserve/{bedspace_id}', [App\Http\Controlle
 Route::middleware(['auth'])->group(function() {
 
     Route::get('/rental-reserve/{id}', [App\Http\Controllers\Boarder\RentalReserveController::class, 'index']);
+    Route::post('/rental-reserve-now', [App\Http\Controllers\Boarder\RentalReserveController::class, 'rentalReserveNow']);
 
+ 
 });
 
 
