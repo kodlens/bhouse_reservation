@@ -13,7 +13,8 @@ class Rental extends Model
     protected $primaryKey = 'rental_id';
 
     protected $fillable = ['bhouse_id', 'rental_name',
-        'rental_desc', 'rental_img_path', 'rental_type'
+        'rental_desc', 'rental_img_path', 'rental_type',
+        'is_reserved', 'is_occupied'
     ];
 
 

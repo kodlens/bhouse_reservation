@@ -74,7 +74,16 @@ export default{
 
         reserveNow(){
             axios.post('/rental-reserve-now', this.rental).then(res=>{
-            
+                if(res.data.status === 'saved'){
+                    this.$buefy.dialog.alert({
+                        type: 'is-success',
+                        title: 'Reserved.',
+                        message: 'Room successfully reserved.',
+                        onConfirm: ()=>{
+                            window.location = '/my-reservation'
+                        }
+                    });
+                }
             }).catch(err=>{
             
             })

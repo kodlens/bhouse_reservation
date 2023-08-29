@@ -10243,7 +10243,20 @@ __webpack_require__.r(__webpack_exports__);
       this.rental = this.propRental;
     },
     reserveNow: function reserveNow() {
-      axios.post('/rental-reserve-now', this.rental).then(function (res) {})["catch"](function (err) {});
+      var _this = this;
+
+      axios.post('/rental-reserve-now', this.rental).then(function (res) {
+        if (res.data.status === 'saved') {
+          _this.$buefy.dialog.alert({
+            type: 'is-success',
+            title: 'Reserved.',
+            message: 'Room successfully reserved.',
+            onConfirm: function onConfirm() {
+              window.location = '/my-reservation';
+            }
+          });
+        }
+      })["catch"](function (err) {});
     }
   },
   mounted: function mounted() {

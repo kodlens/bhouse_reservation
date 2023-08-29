@@ -27,6 +27,10 @@ class CreateRentalsTable extends Migration
             $table->string('amenities')->nullable();
             $table->double('price')->default(0);
             $table->string('rental_img_path')->nullable();
+
+            $table->tinyInteger('is_reserved')->default(0);
+            $table->tinyInteger('is_occupied')->default(0);
+
             $table->timestamps();
         });
     }
