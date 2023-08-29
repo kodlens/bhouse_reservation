@@ -10226,6 +10226,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     propRental: {
@@ -10235,12 +10243,15 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      rental: {}
+      rental: {},
+      data: {}
     };
   },
   methods: {
     initData: function initData() {
       this.rental = this.propRental;
+      this.data = this.propRental;
+      this.loadNavigator();
     },
     reserveNow: function reserveNow() {
       var _this = this;
@@ -10257,7 +10268,60 @@ __webpack_require__.r(__webpack_exports__);
           });
         }
       })["catch"](function (err) {});
-    }
+    },
+    loadNavigator: function loadNavigator() {
+      var _this2 = this;
+
+      if (navigator.geolocation) {
+        navigator.permissions.query({
+          name: 'geolocation'
+        }).then(function (permission) {
+          // if(permission.state === 'denied'){
+          //     alert('Please allow us to record your location.');
+          //     return;
+          // }
+          navigator.geolocation.getCurrentPosition(_this2.getPosition);
+
+          _this2.loadMap();
+        });
+      } else {
+        //this.camera = 'off';
+        alert('Geolocation is not supported by this browser but still you can continue using the scanner.');
+      }
+    },
+    getPosition: function getPosition(position) {
+      //console.log(position.coords.latitude, position.coords.longitude);
+      //this.position.lat = position.coords.latitude;
+      //this.position.long = position.coords.longitude;
+      this.nlat = position.coords.latitude;
+      this.nlong = position.coords.longitude;
+    },
+    loadMap: function loadMap() {
+      //init map
+      var mymap = L.map('mapid').setView([this.data.lat, this.data["long"]], 17); //to call data inside nested function
+
+      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZXRpZW5uZXdheW5lIiwiYSI6ImNrcno0N29seTE2bG0yd2szOXl5OXZ0ZWsifQ.xlNi77GcJmddd9UZTz1Hpw', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken: 'pk.eyJ1IjoiZXRpZW5uZXdheW5lIiwiYSI6ImNrcno0N29seTE2bG0yd2szOXl5OXZ0ZWsifQ.xlNi77GcJmddd9UZTz1Hpw'
+      }).addTo(mymap);
+      console.log(this.nlat); //add route in leaflet
+
+      L.marker([this.data.lat, this.data["long"]]).addTo(mymap); // L.Routing.control({
+      //     waypoints: [
+      //         L.latLng(this.nlat, this.nlong),//bhouse coordiantes
+      //         //L.latLng(this.data.lat, this.data.long)//current location coordinates
+      //     ]
+      // }).addTo(mymap);
+      // var popup = L.popup()
+      //     .setLatLng(this.nlat, this.nlong)
+      //     .setContent('<p>Hello world!</br>This is a nice popup.</p>')
+      //     .openOn(map);
+    } //load map
+
   },
   mounted: function mounted() {
     this.initData();
@@ -55815,10 +55879,23 @@ var render = function () {
           ]),
         ]),
       ]),
+      _vm._v(" "),
+      _vm._m(0),
     ]),
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "columns" }, [
+      _c("div", { staticClass: "column" }, [
+        _c("div", { attrs: { id: "mapid" } }),
+      ]),
+    ])
+  },
+]
 render._withStripped = true
 
 
