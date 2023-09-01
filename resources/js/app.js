@@ -79,10 +79,34 @@ Vue.use(VueQuillEditor, /* { default global options } */)
 
 
 Vue.filter('formatDecimalComma', function(value) {
-
     var num = parseInt(value);
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");;
 });
+
+
+
+Vue.filter('formatTime', function(value) {
+    var timeString = value;
+    var H = +timeString.substr(0, 2);
+    var h = (H % 12) || 12;
+    var ampm = H < 12 ? " AM" : " PM";
+    timeString = h + timeString.substr(2, 3) + ampm;
+    return timeString;
+});
+
+
+Vue.filter('formatDateTime', function(value) {
+    let ndate = new Date(value);
+
+    var timeString = ndate.toTimeString();
+    var H = +timeString.substr(0, 2);
+    var h = (H % 12) || 12;
+    var ampm = H < 12 ? " AM" : " PM";
+    timeString = h + timeString.substr(2, 3) + ampm;
+    return ndate.toDateString()+ ', Time: ' + timeString;
+});
+
+
 
 
 

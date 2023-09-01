@@ -196,6 +196,11 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/rental-reserve/{id}', [App\Http\Controllers\Boarder\RentalReserveController::class, 'index']);
     Route::post('/rental-reserve-now', [App\Http\Controllers\Boarder\RentalReserveController::class, 'rentalReserveNow']);
 
+    Route::resource('/my-reservations', App\Http\Controllers\Boarder\MyReservationController::class);
+    Route::get('/get-my-reservations', [App\Http\Controllers\Boarder\MyReservationController::class, 'getMyReservations']);
+    Route::post('/cancel-my-reservations/{id}', [App\Http\Controllers\Boarder\MyReservationController::class, 'cancelReservation']);
+
+    
  
 });
 

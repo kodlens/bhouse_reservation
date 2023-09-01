@@ -71,7 +71,7 @@
                     </b-menu-list>
 
                     <b-menu-list>
-                        <b-menu-item label="My Reservation" icon="home-floor-a" tag="a" href="/my-reservation"></b-menu-item>
+                        <b-menu-item label="My Reservation" icon="home-floor-a" tag="a" href="/my-reservations"></b-menu-item>
                     </b-menu-list>
 
                     <b-menu-list>

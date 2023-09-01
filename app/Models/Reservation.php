@@ -22,4 +22,11 @@ class Reservation extends Model
         'approved_datetime',
     ];
 
+
+    public function rental(){
+        return $this->belongsTo(Rental::class, 'rental_id', 'rental_id');
+    }
+
+    
+
 }

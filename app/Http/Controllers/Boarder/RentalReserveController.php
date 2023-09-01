@@ -15,7 +15,8 @@ class RentalReserveController extends Controller
 
     public function index($id){
 
-        $rental = Rental::where('rental_id', $id)
+        $rental = Rental::with(['boardingHouse'])
+            ->where('rental_id', $id)
             ->with(['rental_imgs'])
             ->first();
         return view('rental-reserve')

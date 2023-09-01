@@ -18,8 +18,6 @@
 
                             </div>
 
-
-
                         </div> <!--img container-->
 
                         <!-- description and price about the rental-->
@@ -48,11 +46,9 @@
                 </div><!-- end col-->
             </div><!-- end cols-->
 
-            <div class="columns">
-                <div class="column">
-
+            <div class="columns mt-4 is-centered">
+                <div class="column is-8-desktop is-10-tablet">
                     <div id="mapid"></div>
-
                 </div>
             </div>
         </div><!--end section-->
@@ -132,7 +128,7 @@ export default{
             //init map
 
 
-            var mymap = L.map('mapid').setView([this.data.lat, this.data.long], 17);
+            var mymap = L.map('mapid').setView([this.data.boarding_house.lat, this.data.boarding_house.long], 17);
             //to call data inside nested function
 
             L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZXRpZW5uZXdheW5lIiwiYSI6ImNrcno0N29seTE2bG0yd2szOXl5OXZ0ZWsifQ.xlNi77GcJmddd9UZTz1Hpw', {
@@ -143,9 +139,9 @@ export default{
                 zoomOffset: -1,
                 accessToken: 'pk.eyJ1IjoiZXRpZW5uZXdheW5lIiwiYSI6ImNrcno0N29seTE2bG0yd2szOXl5OXZ0ZWsifQ.xlNi77GcJmddd9UZTz1Hpw'
             }).addTo(mymap);
-            console.log(this.nlat)
+            //console.log(this.nlat)
             //add route in leaflet
-            L.marker([this.data.lat, this.data.long]).addTo(mymap);
+            L.marker([this.data.boarding_house.lat, this.data.boarding_house.long]).addTo(mymap);
 
             // L.Routing.control({
             //     waypoints: [
@@ -172,3 +168,9 @@ export default{
     }
 }
 </script>
+
+<style scoped>
+    #mapid { height: 500px; z-index: 0;}
+
+
+</style>
