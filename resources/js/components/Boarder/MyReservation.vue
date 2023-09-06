@@ -88,12 +88,10 @@
                                     </template>
 
                                     <b-dropdown-item aria-role="listitem" 
-                                        @click="getData(props.row.user_id)">Modify</b-dropdown-item>
+                                        @click="getData(props.row.reservation_id)">Pay GCASH</b-dropdown-item>
                                     <b-dropdown-item aria-role="listitem" 
                                         @click="confirmCancel(props.row.reservation_id)"
                                         v-if="props.row.status === 0">Cancel</b-dropdown-item>
-                          
-
                                 </b-dropdown>
 
                             </b-table-column>
@@ -103,8 +101,6 @@
 
             </div>
         </div><!--section div-->
-
-
 
 
         <!--modal reset password-->

@@ -5,7 +5,8 @@
                 <div class="column is-8">
                     
                     <div class="box">
-                        <div class="box-header">
+                        <div class="box-header has-text-weight-bold mb-1">
+                            RENTAL INORMATION
                         </div>
 
                         <div class="">
@@ -48,6 +49,9 @@
 
             <div class="columns mt-4 is-centered">
                 <div class="column is-8-desktop is-10-tablet">
+                    <div class="has-text-weight-bold mb-1">
+                        LOCATION
+                    </div>
                     <div id="mapid"></div>
                 </div>
             </div>
@@ -87,7 +91,7 @@ export default{
                         title: 'Reserved.',
                         message: 'Room successfully reserved.',
                         onConfirm: ()=>{
-                            window.location = '/my-reservation'
+                            window.location = '/my-reservations'
                         }
                     });
                 }
@@ -126,8 +130,6 @@ export default{
 
         loadMap(){
             //init map
-
-
             var mymap = L.map('mapid').setView([this.data.boarding_house.lat, this.data.boarding_house.long], 17);
             //to call data inside nested function
 

@@ -159,9 +159,9 @@
 
                 <div class="rental-content">
                     <img :src="`/storage/rentals/${item.rental_img_path}`" 
-                    alt="rental images"
-                    class="img-cover"
-                    srcset="">
+                        alt="rental images"
+                        class="img-cover"
+                        srcset="">
 
                     <div class="result-rental-description">
                         <div class="result-rental-title">

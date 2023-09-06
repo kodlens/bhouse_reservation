@@ -58,7 +58,8 @@ class SearchRentalController extends Controller
             })
             ->wherehas('boardingHouse.barangay', function ($q) use ($brgy){
                 $q->where('brgyCode', 'like', $brgy . '%');
-            });
+            })
+            ->where('is_reserved', 0);
 
         if(!empty($amenities)){
             $data->whereHas('boardingHouse.amenities', function ($q) use ($amenities){

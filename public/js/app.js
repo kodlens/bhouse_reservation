@@ -10332,10 +10332,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -10729,6 +10725,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     propRental: {
@@ -10758,7 +10758,7 @@ __webpack_require__.r(__webpack_exports__);
             title: 'Reserved.',
             message: 'Room successfully reserved.',
             onConfirm: function onConfirm() {
-              window.location = '/my-reservation';
+              window.location = '/my-reservations';
             }
           });
         }
@@ -56864,11 +56864,13 @@ var render = function () {
                                       attrs: { "aria-role": "listitem" },
                                       on: {
                                         click: function ($event) {
-                                          return _vm.getData(props.row.user_id)
+                                          return _vm.getData(
+                                            props.row.reservation_id
+                                          )
                                         },
                                       },
                                     },
-                                    [_vm._v("Modify")]
+                                    [_vm._v("Pay GCASH")]
                                   ),
                                   _vm._v(" "),
                                   props.row.status === 0
@@ -57091,7 +57093,11 @@ var render = function () {
       _c("div", { staticClass: "columns is-centered" }, [
         _c("div", { staticClass: "column is-8" }, [
           _c("div", { staticClass: "box" }, [
-            _c("div", { staticClass: "box-header" }),
+            _c("div", { staticClass: "box-header has-text-weight-bold mb-1" }, [
+              _vm._v(
+                "\n                        RENTAL INORMATION\n                    "
+              ),
+            ]),
             _vm._v(" "),
             _c("div", {}, [
               _c("div", { staticClass: "box-body" }, [
@@ -57166,6 +57172,10 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "columns mt-4 is-centered" }, [
       _c("div", { staticClass: "column is-8-desktop is-10-tablet" }, [
+        _c("div", { staticClass: "has-text-weight-bold mb-1" }, [
+          _vm._v("\n                    LOCATION\n                "),
+        ]),
+        _vm._v(" "),
         _c("div", { attrs: { id: "mapid" } }),
       ]),
     ])
