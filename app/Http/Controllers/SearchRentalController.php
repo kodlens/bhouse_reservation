@@ -16,8 +16,6 @@ class SearchRentalController extends Controller
 
     public function getSearchBhouses(Request $req){
 
-        //return $req;
-
         $amenities = json_decode($req->amenities);
         $rules = json_decode($req->rules);
         //return $amenities;
@@ -34,10 +32,11 @@ class SearchRentalController extends Controller
         $price_max = $req->max_price;
         //$bhouserule = $req->bhouserule;
 
-        $prov = $req->province;
-        $city = $req->city;
-        $brgy = $req->barangay;
-        $street = $req->street;
+        $prov = $req->province ? $req->province : '';
+        $city = $req->city ? $req->city : '';
+        $brgy = $req->barangay ? $req->barangay : '';
+        $street = $req->street ? $req->street : '';
+
 
         //return $amenities;
         //return $req;

@@ -107,7 +107,6 @@ Route::middleware(['auth'])->group(function() {
     //==========LANDOWNER============//
     //===============================//
 
-    
     Route::resource('/amenities', App\Http\Controllers\LandOwner\AmenityController::class);
 
     Route::resource('/landowner-dashboard', App\Http\Controllers\LandOwner\LandownerDashboardController::class);
@@ -199,9 +198,12 @@ Route::middleware(['auth'])->group(function() {
     Route::resource('/my-reservations', App\Http\Controllers\Boarder\MyReservationController::class);
     Route::get('/get-my-reservations', [App\Http\Controllers\Boarder\MyReservationController::class, 'getMyReservations']);
     Route::post('/cancel-my-reservations/{id}', [App\Http\Controllers\Boarder\MyReservationController::class, 'cancelReservation']);
+    Route::post('/upload-gcash-receipt/{id}', [App\Http\Controllers\Boarder\MyReservationController::class, 'uploadGcash']);
 
-    
- 
+
+
+
+
 });
 
 

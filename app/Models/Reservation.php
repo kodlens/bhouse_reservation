@@ -20,6 +20,7 @@ class Reservation extends Model
         'book_datetime',
         'status',
         'approved_datetime',
+        'gcash_receipt_img'
     ];
 
 
@@ -27,6 +28,6 @@ class Reservation extends Model
         return $this->belongsTo(Rental::class, 'rental_id', 'rental_id');
     }
 
-    
+
 
 }

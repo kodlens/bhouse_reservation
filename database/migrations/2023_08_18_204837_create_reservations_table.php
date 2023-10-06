@@ -32,6 +32,9 @@ class CreateReservationsTable extends Migration
             $table->tinyInteger('status')->default(0);
             $table->dateTime('approved_datetime')->nullable();
 
+            $table->string('gcash_receipt_img')->nullable();
+
+
             $table->timestamps();
         });
     }

@@ -17,25 +17,23 @@
                                     </b-select>
                                 </b-field>
 
-                                <b-field label="Search">
-                                    <b-input type="text"
-                                                v-model="search.lname" placeholder="Search Lastname"
-                                                @keyup.native.enter="loadAsyncData"/>
-                                    <p class="control">
-                                        <b-button type="is-primary" icon-right="account-filter" @click="loadAsyncData"/>
-                                    </p>
-                                </b-field>
+<!--                                <b-field label="Search">-->
+<!--                                    <b-input type="text"-->
+<!--                                                v-model="search.lname" placeholder="Search Lastname"-->
+<!--                                                @keyup.native.enter="loadAsyncData"/>-->
+<!--                                    <p class="control">-->
+<!--                                        <b-button type="is-primary" icon-right="account-filter" @click="loadAsyncData"/>-->
+<!--                                    </p>-->
+<!--                                </b-field>-->
                             </div>
                         </div>
 
-                        <div class="buttons mt-3 is-right">
-                            <b-button @click="openModal" icon-right="account-arrow-up-outline" class="is-success">NEW</b-button>
-                        </div>
 
                         <b-table
                             :data="data"
                             :loading="loading"
                             paginated
+                            detailed
                             backend-pagination
                             :total="total"
                             :per-page="perPage"
@@ -78,7 +76,7 @@
 
 
                             <b-table-column label="Action" v-slot="props">
-                                <b-dropdown aria-role="list">
+                                <b-dropdown aria-role="list" v-if="props.row.status !== 2">
                                     <template #trigger="{ active }">
                                         <b-button
                                             label="..."
@@ -87,14 +85,37 @@
                                             :icon-right="active ? 'menu-up' : 'menu-down'" />
                                     </template>
 
-                                    <b-dropdown-item aria-role="listitem" 
-                                        @click="getData(props.row.reservation_id)">Pay GCASH</b-dropdown-item>
-                                    <b-dropdown-item aria-role="listitem" 
+                                    <b-dropdown-item aria-role="listitem"
+                                        @click="openModal(props.row.reservation_id)">Upload GCASH Receipt</b-dropdown-item>
+                                    <b-dropdown-item aria-role="listitem"
                                         @click="confirmCancel(props.row.reservation_id)"
                                         v-if="props.row.status === 0">Cancel</b-dropdown-item>
                                 </b-dropdown>
-
                             </b-table-column>
+
+
+
+                            <template #detail="props">
+                                <tr>
+                                    <th>ROOM</th>
+                                    <th>DESCRIPTION</th>
+                                    <th>RECEIPT</th>
+                                </tr>
+
+                                <tr>
+                                    <td>{{ props.row.rental.rental_name }}</td>
+                                    <td>{{ props.row.rental.rental_desc }}</td>
+                                    <td>
+                                        <button class="button is-outlined is-primary is-small"
+                                            v-if="props.row.gcash_receipt_img"
+                                            @click="openReceipt(props.row.gcash_receipt_img)">Show receipt</button>
+                                    </td>
+
+                                </tr>
+
+                            </template>
+
+
                         </b-table>
                     </div><!--close column-->
                 </div>
@@ -103,56 +124,97 @@
         </div><!--section div-->
 
 
-        <!--modal reset password-->
-        <b-modal v-model="isModalResetPassword" has-modal-card
+        <!--modal upload gcash-->
+        <b-modal v-model="modalUploadGcash" has-modal-card
+            trap-focus
+            :width="640"
+            aria-role="dialog"
+            aria-label="Modal"
+            aria-modal>
+
+             <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">UPLOAD GCASH RECEIPT</p>
+                    <button
+                        type="button"
+                        class="delete"
+                        @click="modalUploadGcash = false"/>
+                </header>
+
+                <section class="modal-card-body">
+                    <div class="">
+                        <b-field>
+                            <b-upload v-model="gcashReceipt" drag-drop>
+                                <section class="section">
+                                    <div class="content has-text-centered">
+                                        <p>
+                                            <b-icon
+                                                icon="upload"
+                                                size="is-large">
+                                            </b-icon>
+                                        </p>
+                                        <p>Drop GCASH receipt here or click to upload</p>
+                                    </div>
+                                </section>
+                            </b-upload>
+                        </b-field>
+
+                        <div class="tags" v-if="gcashReceipt.name">
+                            <span class="tag is-primary" >
+                                {{ gcashReceipt.name }}
+                                <button class="delete is-small"
+                                    type="button"
+                                    @click="gcashReceipt = null">
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <b-button
+                        label="Close"
+                        @click="modalUploadGcash=false" />
+                    <button
+                        :class="btnClass"
+                        @click="uploadGcashReceipt"
+                        type="is-success">Upload</button>
+                </footer>
+            </div>
+        </b-modal>
+        <!--close modal upload gcash-->
+
+
+
+        <!--modal show receipt -->
+        <b-modal v-model="modalShowReceipt" has-modal-card
                  trap-focus
                  :width="640"
                  aria-role="dialog"
                  aria-label="Modal"
                  aria-modal>
 
-            <form @submit.prevent="submitResetPassword">
-                <div class="modal-card">
-                    <header class="modal-card-head">
-                        <p class="modal-card-title">RESET PASSWORD</p>
-                        <button
-                            type="button"
-                            class="delete"
-                            @click="isModalResetPassword = false"/>
-                    </header>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">GCASH RECEIPT</p>
+                    <button
+                        type="button"
+                        class="delete"
+                        @click="modalShowReceipt = false"/>
+                </header>
 
-                    <section class="modal-card-body">
-                        <div class="">
-
-                            <b-field label="Password" label-position="on-border"
-                                     :type="this.errors.password ? 'is-danger':''"
-                                     :message="this.errors.password ? this.errors.password[0] : ''">
-                                <b-input type="password" password-reveal v-model="fields.password" placeholder="Password">
-                                </b-input>
-                            </b-field>
-                            <b-field label="Re-type Password" label-position="on-border"
-                                     :type="this.errors.password_confirmation ? 'is-danger':''"
-                                     :message="this.errors.password_confirmation ? this.errors.password_confirmation[0] : ''">
-                                <b-input type="password" password-reveal v-model="fields.password_confirmation"
-                                         placeholder="Re-type Password">
-                                </b-input>
-                            </b-field>
-                        </div>
-                    </section>
-                    <footer class="modal-card-foot">
-                        <b-button
-                            label="Close"
-                            @click="isModalResetPassword=false"/>
-                        <button
-                            :class="btnClass"
-                            label="Save"
-                            type="is-success">RESET PASSWORD</button>
-                    </footer>
-                </div>
-            </form><!--close form-->
+                <section class="modal-card-body">
+                    <div class="">
+                        <img :src="`/storage/gcash/${receiptImg}`" />
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <b-button
+                        label="Close"
+                        @click="modalShowReceipt=false" />
+                </footer>
+            </div>
         </b-modal>
-        <!--close modal reset password-->
-
+        <!--close modal show receipt-->
 
     </div>
 </template>
@@ -173,21 +235,14 @@ export default{
 
 
             global_id : 0,
+            gcashReceipt: {},
+            receiptImg: '',
 
-            search: {
-                lname: '',
-            },
 
-            isModalCreate: false,
-            isModalResetPassword : false,
+            modalUploadGcash: false,
+            modalShowReceipt: false,
 
-            fields: {
-                username: '',
-                lname: '', fname: '', mname: '',
-                password: '', password_confirmation : '',
-                sex : '', role: '',  email : '', contact_no : '',
-                province: '', city: '', barangay: '', street: ''
-            },
+            fields: {},
             errors: {},
 
             btnClass: {
@@ -196,9 +251,6 @@ export default{
                 'is-loading':false,
             },
 
-            provinces: [],
-            cities: [],
-            barangays: [],
         }
 
     },
@@ -210,7 +262,7 @@ export default{
         loadAsyncData() {
             const params = [
                 `sort_by=${this.sortField}.${this.sortOrder}`,
-                `key=${this.search.lname}`,
+                // `key=${this.search.lname}`,
                 `perpage=${this.perPage}`,
                 `page=${this.page}`
             ].join('&')
@@ -256,81 +308,41 @@ export default{
             this.loadAsyncData()
         },
 
-        openModal(){
-            this.isModalCreate=true;
-            this.global_id = 0;
-            this.fields = {};
-            this.errors = {};
+        openModal(resId){
+            this.global_id = resId
+            this.modalUploadGcash = true;
         },
 
-        loadProvince: function(){
-            axios.get('/load-provinces').then(res=>{
-                this.provinces = res.data;
+        openReceipt(img){
+            this.modalShowReceipt = true
+            this.receiptImg = img
+        },
+
+        uploadGcashReceipt(){
+
+            var formData = new FormData();
+
+            formData.append('gcash_receipt_img', this.gcashReceipt ? this.gcashReceipt : '');
+
+            axios.post('/upload-gcash-receipt/' + this.global_id, formData).then(res=>{
+                if(res.status.data === 'uploaded'){
+                    this.$buefy.dialog.alert({
+                        title: 'UPLOADED!',
+                        message: 'Successfully uploaded.',
+                        type: 'is-success',
+                        onConfirm: () => {
+                            this.loadAsyncData();
+                            this.global_id = 0;
+                        }
+                    })
+                }
+            }).catch(err=>{
+                if(err.response.status === 422){
+                    this.errors = err.response.data.errors;
+                }
             })
         },
 
-        loadCity: function(){
-            axios.get('/load-cities?prov=' + this.fields.province).then(res=>{
-                this.cities = res.data;
-            })
-        },
-
-        loadBarangay: function(){
-            axios.get('/load-barangays?prov=' + this.fields.province + '&city_code='+this.fields.city).then(res=>{
-                this.barangays = res.data;
-            })
-        },
-
-
-        submit: function(){
-
-            if(this.global_id > 0){
-                //update
-                axios.put('/users/'+this.global_id, this.fields).then(res=>{
-                    if(res.data.status === 'updated'){
-                        this.$buefy.dialog.alert({
-                            title: 'UPDATED!',
-                            message: 'Successfully updated.',
-                            type: 'is-success',
-                            onConfirm: () => {
-                                this.loadAsyncData();
-                                this.clearFields();
-                                this.global_id = 0;
-                                this.isModalCreate = false;
-                            }
-                        })
-                    }
-                }).catch(err=>{
-                    if(err.response.status === 422){
-                        this.errors = err.response.data.errors;
-                    }
-                })
-            }else{
-                //INSERT HERE
-                axios.post('/users', this.fields).then(res=>{
-                    if(res.data.status === 'saved'){
-                        this.$buefy.dialog.alert({
-                            title: 'SAVED!',
-                            message: 'Successfully saved.',
-                            type: 'is-success',
-                            confirmText: 'OK',
-                            onConfirm: () => {
-                                this.isModalCreate = false;
-                                this.loadAsyncData();
-                                this.clearFields();
-                                this.global_id = 0;
-                            }
-                        })
-                    }
-                }).catch(err=>{
-                    if(err.response.status === 422){
-                        this.errors = err.response.data.errors;
-                    }
-                });
-
-
-            }
-        },
 
         //alert box ask for deletion
         confirmCancel(id) {
@@ -362,122 +374,10 @@ export default{
         },
 
 
-        //update code here
-        getData: function(data_id){
-            this.clearFields();
-            this.global_id = data_id;
-            this.isModalCreate = true;
-
-
-            //nested axios for getting the address 1 by 1 or request by request
-            axios.get('/users/'+data_id).then(res=>{
-                this.fields = res.data;
-                let tempData = res.data;
-                //load city first
-                axios.get('/load-cities?prov=' + this.fields.province).then(res=>{
-                    //load barangay
-                    this.cities = res.data;
-                    axios.get('/load-barangays?prov=' + this.fields.province + '&city_code='+this.fields.city).then(res=>{
-                        this.barangays = res.data;
-                        this.fields = tempData;
-                    });
-                });
-            });
-        },
-
-        openModalResetPassword(dataId){
-            this.fields = {};
-            this.isModalResetPassword = true;
-            this.global_id = dataId;
-        },
-        
-        submitResetPassword: function(){
-            axios.post('/user-reset-password/' +this.global_id, this.fields).then(res=>{
-                if(res.data.status === 'reseted'){
-                    this.$buefy.dialog.alert({
-                        title: 'RESET SUCCESSFULLY!',
-                        message: 'Password reset successfully',
-                        type: 'is-success',
-                        onConfirm: ()=>{
-                            this.fields = {};
-                            this.global_id = 0;
-                            this.loadAsyncData();
-                            this.isModalResetPassword = false;
-                        }
-                    });
-                }
-            }).catch(err=>{
-                if(err.response.status === 422){
-                    this.errors = err.response.data.errors;
-                }
-            })
-        },
-
-
-        checkMobileNo(evt){
-            var phoneno = /^(09|\+639)\d{9}$/;
-            if(evt.match(phoneno)){
-                this.errors.contact_no = false;
-            }else{
-                this.errors.contact_no = true;
-                this.errors.contact_no = ['Invalid mobile number format. Valid format sample is (+639161234123)'];
-
-            }
-        },
-
-
-        confirmDeactivate(dataId) {
-            this.$buefy.dialog.confirm({
-                title: 'Deactivate!',
-                type: 'is-danger',
-                message: 'Are you sure you want deactivate this data?',
-                cancelText: 'Cancel',
-                confirmText: 'Disable',
-                onConfirm: () => this.deactivate(dataId)
-            });
-        },
-        //execute delete after confirming
-        deactivate(dataId) {
-            axios.post('/user-deactivate/' + dataId).then(res => {
-
-                if(res.data.status === 'deactivated'){
-                    this.$buefy.toast.open({
-                        message: 'Account deactivated',
-                        type: 'is-success'
-                    })
-                }
-                this.loadAsyncData();
-            }).catch(err => {
-                if (err.response.status === 422) {
-                    this.errors = err.response.data.errors;
-                }
-            });
-        },
-
-        activate: function(dataId){
-            axios.post('/user-activate/' + dataId).then(res => {
-
-                if(res.data.status === 'activated'){
-                    this.$buefy.toast.open({
-                        message: 'Account activated',
-                        type: 'is-success'
-                    })
-                }
-                this.loadAsyncData();
-            }).catch(err => {
-                if (err.response.status === 422) {
-                    this.errors = err.response.data.errors;
-                }
-            });
-        }
-
-
-
     },
 
     mounted() {
         this.loadAsyncData();
-        this.loadProvince();
     }
 }
 </script>

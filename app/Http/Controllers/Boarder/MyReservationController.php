@@ -33,7 +33,7 @@ class MyReservationController extends Controller
         //     ->join('bedspaces as b', 'a.bedspace_id', 'b.bedspace_id')
         //     ->join('rooms as c', 'b.room_id', 'c.room_id')
         //     ->where('book_user_id', $userid)
-            
+
         //     ->orderBy($sort[0], $sort[1])
         //     ->paginate($req->perpage);
 
@@ -79,6 +79,39 @@ class MyReservationController extends Controller
     //     ]);
     // }
 
+
+    public function uploadGcash(Request $req, $id){
+
+        $req->validate([
+            'gcash_receipt_img' => ['required', 'mimes:jpg,png,bmp', 'max: 800']
+        ],[
+             'gcash_receipt_img.required' => 'Gcash receipt is required.',
+             'gcash_receipt_img.mimes' => 'Gcash receipt type must type of jpg, png, bmp.',
+             'gcash_receipt_img.max' => 'Gcash receipt must lesser than 800Kb.'
+         ]);
+
+        $gcashReceipt = $req->file('gcash_receipt_img');
+        $gcash_receipt = [];
+         if($gcashReceipt){
+             $pathFile = $gcashReceipt->store('public/gcash'); //get path of the file
+             $gcash_receipt = explode('/', $pathFile); //split into array using /
+         }
+
+        $data = Reservation::find($id);
+
+         if(Storage::exists('public/gcash/'. $data->gcash_receipt)){
+             Storage::delete('public/gcash/'. $data->gcash_receipt);
+         }
+
+         $data->gcash_receipt_img = $gcash_receipt[2];
+         $data->save();
+
+         return response()->json([
+             'status' => 'uploaded'
+         ]);
+
+
+    }
 
     public function cancelReservation($id){
 
